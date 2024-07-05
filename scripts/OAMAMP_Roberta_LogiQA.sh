@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#SBATCH --job-name=OAMAMP
+#SBATCH -w gpu01
+#SBATCH --gpus-per-node=1
+#SBATCH --mem=16G
+#SBATCH --output=/media/bhthong/OAMAMP/slurmOutput/%j.out
+
+source activate /media/bhthong/anaconda3/envs/amamp
+nvidia-smi
+export MODE=do_train
+export DATASET_DIR=LogiQADataset
+export TASK_NAME=OAMAMP
+export MODEL_DIR='roberta-large'
+export WANDB_DISABLED=true
+export TOKENIZERS_PARALLELISM=false
+export RUN_NAME=OAMAMP_LogiQA
+export DATASET_DIR=$DATASET_DIR
+export MODEL_TYPE=Roberta
+
+python3 run_multiple_choice.py \
+  --run_name $RUN_NAME \
+  --task_name $TASK_NAME \
+  --model_name_or_path $MODEL_DIR \
+  --data_dir $DATASET_DIR \
+  --$MODE \
+  --do_eval \
+  --seed 42 \
+  --model_type $MODEL_TYPE \
+  --max_seq_length 384 \
+  --per_device_eval_batch_size 4 \
+  --per_device_train_batch_size 1 \
+  --gradient_accumulation_steps 8 \
+  --num_train_epochs 10 \
+  --output_dir Checkpoints/$DATASET_DIR/$RUN_NAME \
+  --logging_steps 200 \
+  --learning_rate 7e-6 \
+  --overwrite_output_dir \
+  --evaluation_strategy epoch \
+  --save_strategy epoch \
+  --metric_for_best_model acc_dev \
+  --gnn_layers_num 2 \
+  --save_total_limit 10 \
+  --dropout 0.1 \
+  --warmup_ratio 0.2 \
+  --pooling_type attention_pooling_with_gru \
