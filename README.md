@@ -23,8 +23,6 @@ pip install pylev
 export MODE=eval_only
 bash scripts/AMAMP_Roberta_LogiQA.sh /PATH/TO/LOGIQA/CHECKPOINTS ## LogiQA evaluation
 bash scripts/AMAMP_Roberta_ReClor.sh /PATH/TO/RECLOR/CHECKPOINTS ## ReClor
-bash scripts/OAMAMP_Roberta_LogiQA.sh /PATH/TO/LOGIQA/CHECKPOINTS ## LogiQA 
-bash scripts/OAMAMP_Roberta_ReClor.sh /PATH/TO/RECLOR/CHECKPOINTS ## ReClor
 ```
 
 ## Training
@@ -32,8 +30,6 @@ bash scripts/OAMAMP_Roberta_ReClor.sh /PATH/TO/RECLOR/CHECKPOINTS ## ReClor
 export MODE=do_train
 bash scripts/AMAMP_Roberta_LogiQA.sh /PATH/TO/ROBERTA ## LogiQA training
 bash scripts/AMAMP_Roberta_ReClor.sh /PATH/TO/ROBERTA ## ReClor
-bash scripts/OAMAMP_Roberta_LogiQA.sh /PATH/TO/ROBERTA ## LogiQA 
-bash scripts/OAMAMP_Roberta_ReClor.sh /PATH/TO/ROBERTA ## ReClor
 ```
 
 ## Acknowledgement
