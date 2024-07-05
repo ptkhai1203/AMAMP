@@ -6,6 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
+# Remove files/folders
+Checkpoints/*
+results/*
+runs/
+.idea
+ReclorDataset/cached_*
+LogiQADataset/cached_*
+ReclorDataset/ReclorDataset_EDUs.json
+LogiQADataset/LogiQADataset_EDUs.json
+
 # Distribution / packaging
 .Python
 build/
