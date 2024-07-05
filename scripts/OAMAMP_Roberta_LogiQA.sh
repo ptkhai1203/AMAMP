@@ -1,20 +1,12 @@
-#!/bin/bash
-
-#SBATCH --job-name=OAMAMP
-#SBATCH -w gpu01
-#SBATCH --gpus-per-node=1
-#SBATCH --mem=16G
-#SBATCH --output=/media/bhthong/OAMAMP/slurmOutput/%j.out
-
-source activate /media/bhthong/anaconda3/envs/amamp
-nvidia-smi
-export MODE=do_train
+#!/usr/bin/env bash
 export DATASET_DIR=LogiQADataset
 export TASK_NAME=OAMAMP
-export MODEL_DIR='roberta-large'
+export MODEL_DIR=$1
 export WANDB_DISABLED=true
 export TOKENIZERS_PARALLELISM=false
+
 export RUN_NAME=OAMAMP_LogiQA
+
 export DATASET_DIR=$DATASET_DIR
 export MODEL_TYPE=Roberta
 
