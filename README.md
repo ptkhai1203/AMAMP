@@ -4,7 +4,7 @@ This repo provides the source code of our paper: "AMAMP: A Two-Phase Adaptive Mu
 ## Citation
 If our paper is helpful for your research, please cite this paper in your publications.
 ```bib
-Waiting for citation
+Waiting for bib
 ```
 ## Requirements
 ```
