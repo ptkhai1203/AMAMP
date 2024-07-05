@@ -39,17 +39,14 @@ from transformers import (
 from transformers.trainer_utils import is_main_process
 
 import Config
-from models import RobertaOAMAMP
 from models import RobertaAMAMP
 from utils.data_utils import DatasetBertLogiGraph, processors, MyRobertaTokenizer, Split
 
 logger = logging.getLogger(__name__)
 
-model_class = {"OAMAMP": RobertaOAMAMP,
-              "AMAMP": RobertaAMAMP}
+model_class = {"AMAMP": RobertaAMAMP}
 
-dataset_class = {"OAMAMP": DatasetBertLogiGraph,
-                "AMAMP": DatasetBertLogiGraph}
+dataset_class = {"AMAMP": DatasetBertLogiGraph}
 
 
 @dataclass
@@ -164,8 +161,7 @@ def main():
     # The .from_pretrained methods guarantee that only one local process can concurrently
     # download model & vocab.
     config = AutoConfig.from_pretrained(
-        #'/media/bhthong/roberta_base',
-        'roberta-base',
+        model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
@@ -177,8 +173,7 @@ def main():
     logger.info(f'tokenizer class: {tokenizer_class.__name__}')
 
     tokenizer = tokenizer_class.from_pretrained(
-        #'/media/bhthong/roberta_large',
-        'roberta-base',
+        model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
     tokenizer.add_special_tokens({'additional_special_tokens': [Config.NODE_SEP_TOKEN]})
@@ -187,8 +182,7 @@ def main():
 
     def model_init():
         return model_class[data_args.task_name].from_pretrained(
-            #'/media/bhthong/roberta_large',
-            'roberta-base',
+            model_args.model_name_or_path,
             from_tf=False,
             config=config,
             cache_dir=model_args.cache_dir, )
@@ -277,7 +271,6 @@ def main():
     if training_args.do_train and not model_args.eval_only:
         trainer.train(
             model_path=model_args.model_name_or_path if os.path.isdir(model_args.model_name_or_path) else None
-#             resume_from_checkpoint = True
         )
         trainer.save_model()
 

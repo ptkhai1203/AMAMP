@@ -473,7 +473,7 @@ def move_node_sentences(edges, node_sentences_a, node_sentences_b, node_sentence
     return new_edges, new_sentences_a, new_sentences_b
 
 
-nlp = stanza.Pipeline(lang='en', model_dir='/media/bhthong/', processors='tokenize,mwt,pos,sentiment,lemma,depparse', use_gpu=False)
+nlp = stanza.Pipeline(lang='en', processors='tokenize,mwt,pos,sentiment,lemma,depparse', use_gpu=False)
 new_not_sentence_map = json.load(open('datas/negative_sentences_map.json', 'r', encoding='utf-8'))
 
 
